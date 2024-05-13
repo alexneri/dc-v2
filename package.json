@@ -1,0 +1,89 @@
+{
+  "name": "app-menu-with-lock-screen",
+  "version": "2024.05.02-08.08.03",
+  "license": "MIT",
+  "homepage": "https://codepen.io/anvneri/pen/ExGKxOB",
+  "scripts": {
+    "build": "gulp -f ./build/gulpfile.js --cwd ./ --continue",
+    "serve": "gulp serve -f ./build/gulpfile.js --cwd ./ --continue",
+    "task": "gulp -f ./build/gulpfile.js --cwd ./ --continue",
+    "tasks": "gulp --tasks-simple -f ./build/gulpfile.js --cwd ./ --continue"
+  },
+  "config": {
+    "srcDir": "src/",
+    "distDir": "dist/"
+  },
+  "devDependencies": {
+    "browser-sync": "*",
+    "del": "^7.1.0",
+    "glob": "*",
+    "gulp": "*",
+    "gulp-inject-partials": "*",
+    "gulp-rename": "*",
+    "gulp-typescript": "*",
+    "sass": "*",
+    "typescript": "*",
+    "webpack": "*",
+    "webpack-cli": "*",
+    "webpack-dev-server": "*"
+  },
+  "browserslist": [
+    "last 5 version"
+  ],
+  "tasks": {
+    "partials": {
+      "order": 999,
+      "src": [
+        "**/*.template.html"
+      ],
+      "pipe": [
+        {
+          "require": "gulp-inject-partials",
+          "args": [
+            {
+              "removeTags": true,
+              "quiet": true,
+              "ignoreError": true
+            }
+          ]
+        }
+      ],
+      "rename": {
+        "find": ".template",
+        "replace": ""
+      },
+      "cleanup": [
+        "**/*.partial.html",
+        "**/*.template.html"
+      ]
+    },
+    "sass": {
+      "src": [
+        "**/*.sass",
+        "**/*.scss"
+      ],
+      "pipe": [
+        {
+          "require": "sass"
+        }
+      ],
+      "cleanup": true
+    },
+    "typescript": {
+      "src": [
+        "**/*.tsx",
+        "**/*.ts"
+      ],
+      "pipe": [
+        {
+          "require": "gulp-typescript"
+        }
+      ],
+      "cleanup": true
+    }
+  },
+  "type": "module",
+  "dependencies": {
+    "gulp-sass": "^5.1.0"
+  }
+}
